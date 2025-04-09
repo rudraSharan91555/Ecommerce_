@@ -6,7 +6,7 @@
         fill="none"
         viewBox="0 0 24 24"
       >
-        <circle
+        <circle       
           class="opacity-25"
           cx="12"
           cy="12"

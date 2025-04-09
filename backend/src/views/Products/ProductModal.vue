@@ -69,23 +69,15 @@
   </TransitionRoot>
 </template>
 
+
 <script setup>
-import {computed, onUpdated, ref} from 'vue'
-import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue'
-import {ExclamationIcon} from '@heroicons/vue/outline'
-import CustomInput from "../../components/core/CustomInput.vue";
-import store from "../../store/index.js";
-import Spinner from "../../components/core/Spinner.vue";
+import { computed, onUpdated, ref } from 'vue'
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import { ExclamationIcon } from '@heroicons/vue/outline'
+import CustomInput from "../../components/core/CustomInput.vue"
+import store from "../../store/index.js"
+import Spinner from "../../components/core/Spinner.vue"
 
-const product = ref({
-  id: props.product.id,
-  title: props.product.title,
-  image: props.product.image,
-  description: props.product.description,
-  price: props.product.price
-})
-
-const loading = ref(false)
 
 const props = defineProps({
   modelValue: Boolean,
@@ -96,6 +88,16 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:modelValue', 'close'])
+
+const product = ref({
+  id: props.product.id,
+  title: props.product.title,
+  image: props.product.image,
+  description: props.product.description,
+  price: props.product.price
+})
+
+const loading = ref(false)
 
 const show = computed({
   get: () => props.modelValue,
@@ -122,9 +124,8 @@ function onSubmit() {
   if (product.value.id) {
     store.dispatch('updateProduct', product.value)
       .then(response => {
-        loading.value = false;
+        loading.value = false
         if (response.status === 200) {
-          // TODO show notification
           store.dispatch('getProducts')
           closeModal()
         }
@@ -132,16 +133,15 @@ function onSubmit() {
   } else {
     store.dispatch('createProduct', product.value)
       .then(response => {
-        loading.value = false;
+        loading.value = false
         if (response.status === 201) {
-          // TODO show notification
           store.dispatch('getProducts')
           closeModal()
         }
       })
       .catch(err => {
-        loading.value = false;
-        debugger;
+        loading.value = false
+        debugger
       })
   }
 }

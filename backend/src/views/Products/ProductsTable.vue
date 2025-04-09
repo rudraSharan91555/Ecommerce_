@@ -11,9 +11,7 @@
           <option value="50">50</option>
           <option value="100">100</option>
         </select>
-        <!-- <span class="ml-3">Found {{products.total}} products</span> -->
-        <span class="ml-3">Found {{ products?.total || 0 }} products</span>
-
+        <span class="ml-3">Found {{products.total}} products</span>
       </div>
       <div>
         <input v-model="search" @change="getProducts(null)"
@@ -48,11 +46,8 @@
         </TableHeaderCell>
       </tr>
       </thead>
-      <!-- <tbody v-if="products.loading || !products.data.length"> -->
-        <!-- <tbody v-if="products?.loading || !products?.data?.length"> -->
-          <tbody v-if="isLoading || !productList.length">
-
-        <tr>
+      <tbody v-if="products.loading || !products.data.length">
+      <tr>
         <td colspan="6">
           <Spinner v-if="products.loading"/>
           <p v-else class="text-center py-8 text-gray-700">
@@ -81,7 +76,7 @@
           <Menu as="div" class="relative inline-block text-left">
             <div>
               <MenuButton
-                class="inline-flex items-center justify-center w-full rounded-full  h-10 bg-black bg-opacity-0 text-sm font-medium text-white hover:bg-opacity-5 focus:bg-opacity-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+                class="inline-flex items-center justify-center w-full  rounded-full  h-10 bg-black bg-opacity-0 text-sm font-medium text-white hover:bg-opacity-5 focus:bg-opacity-5 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
               >
                 <DotsVerticalIcon
                   class="h-5 w-5 text-indigo-500"
@@ -188,12 +183,9 @@ import ProductModal from "./ProductModal.vue";
 
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref('');
-// const products = computed(() => store.state.products); 
+const products = computed(() => store.state.products);
 const sortField = ref('updated_at');
 const sortDirection = ref('desc')
-const products = computed(() => store.state.products || {});
-const isLoading = computed(() => products.value.loading || false);
-const productList = computed(() => products.value.data || []);
 
 const product = ref({})
 const showProductModal = ref(false);

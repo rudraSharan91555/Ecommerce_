@@ -9,7 +9,7 @@
       <!--      Content-->
       <main class="p-6">
         <router-view></router-view>
-      </main>
+      </main>     
       <!--      Content-->
     </div>
   </div>
