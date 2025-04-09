@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port=3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/vue": "^1.0.6",
+    "axios": "^1.8.4",
+    "vue": "^3.5.12",
+    "vue-router": "^4.5.0",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@headlessui/vue": "^1.7.23",
+    "@tailwindcss/forms": "^0.5.10",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.4.37",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.4.10"
+  }
+}
