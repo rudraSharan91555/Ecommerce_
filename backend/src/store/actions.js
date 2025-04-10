@@ -62,6 +62,7 @@ export function  createProduct({commit}, product) {
   return axiosClient.post('/products', product)
 }
 
+
 export function updateProduct({commit}, product) {
   const id = product.id
   if (product.image instanceof File) {
@@ -76,6 +77,8 @@ export function updateProduct({commit}, product) {
   }
   return axiosClient.post(`/products/${id}`, product)
 }
+
+
 
 export function deleteProduct({commit}, id) {
   return axiosClient.delete(`/products/${id}`)

@@ -49,7 +49,6 @@ class ProductController extends Controller
 
         /** @var \Illuminate\Http\UploadedFile $image */
         $image = $data['image'] ?? null;
-        // Check if image was given and save on local file system
         if ($image) {
             $relativePath = $this->saveImage($image);
             $data['image'] = URL::to(Storage::url($relativePath));
@@ -87,14 +86,12 @@ class ProductController extends Controller
 
         /** @var \Illuminate\Http\UploadedFile $image */
         $image = $data['image'] ?? null;
-        // Check if image was given and save on local file system
         if ($image) {
             $relativePath = $this->saveImage($image);
             $data['image'] = URL::to(Storage::url($relativePath));
             $data['image_mime'] = $image->getClientMimeType();
             $data['image_size'] = $image->getSize();
 
-            // If there is an old image, delete it
             if ($product->image) {
                 Storage::deleteDirectory('/public/' . dirname($product->image));
             }
@@ -118,16 +115,21 @@ class ProductController extends Controller
         return response()->noContent();
     }
 
-    private function saveImage(UploadedFile $image)
-    {
-        $path = 'images/' . Str::random();
-        if (!Storage::exists($path)) {
-            Storage::makeDirectory($path, 0755, true);
-        }
-        if (!Storage::putFileAS('public/' . $path, $image, $image->getClientOriginalName())) {
-            throw new \Exception("Unable to save file \"{$image->getClientOriginalName()}\"");
-        }
 
-        return $path . '/' . $image->getClientOriginalName();
+    private function saveImage(UploadedFile $image)
+{
+    $path = 'images/' . Str::random();
+
+    if (!Storage::disk('public')->exists($path)) {
+        Storage::disk('public')->makeDirectory($path, 0755, true);
     }
+
+    if (!Storage::disk('public')->putFileAs($path, $image, $image->getClientOriginalName())) {
+        throw new \Exception("Unable to save file \"{$image->getClientOriginalName()}\"");
+    }
+
+    return $path . '/' . $image->getClientOriginalName(); 
+}
+
+
 }
