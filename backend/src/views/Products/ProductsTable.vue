@@ -67,7 +67,7 @@
           {{ product.title }}
         </td>
         <td class="border-b p-2">
-          ${{ product.price }}
+          Rs. {{ product.price }}
         </td>
         <td class="border-b p-2 ">
           {{ product.updated_at }}
@@ -234,20 +234,21 @@ function showAddNewModal() {
   showProductModal.value = true
 }
 
+function editProduct(product) {
+  emit('clickEdit', product)
+}
+
 function deleteProduct(product) {
   if (!confirm(`Are you sure you want to delete the product?`)) {
     return
   }
   store.dispatch('deleteProduct', product.id)
     .then(res => {
-      // TODO Show notification
       store.dispatch('getProducts')
     })
 }
 
-function editProduct(p) {
-  emit('clickEdit', p)
-}
+
 </script>
 
 <style scoped>

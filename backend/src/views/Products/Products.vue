@@ -35,8 +35,8 @@ function showAddNewModal() {
   showProductModal.value = true
 }
 
-function editProduct(p) {
-  store.dispatch('getProduct', p.id)
+function editProduct(product) {
+  store.dispatch('getProduct', product.id)
     .then(({data}) => {
       productModel.value = data
       showAddNewModal();
