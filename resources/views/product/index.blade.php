@@ -18,7 +18,7 @@
         <img
           src="{{ $product->image }}"
           alt=""
-          class="rounded-lg hover:scale-105 hover:rotate-1 transition-transform object-cover"
+          class="rounded-lg hover:scale-105 hover:rotate-1 transition-transform object-cover "
         />
       </a>
       <div class="p-4">
@@ -58,4 +58,5 @@
     <!--/ Product Item -->
     @endforeach
     </div>
+    {{ $products->links() }}
 </x-app-layout>

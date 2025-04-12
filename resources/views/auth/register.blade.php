@@ -1,7 +1,15 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+<x-app-layout>
+    <form method="POST" action="{{ route('register') }}" class="w-[400px] mx-auto p-6 my-16">
         @csrf
-
+        <h2 class="text-2xl font-semibold text-center mb-4">Create an account</h2>
+        <p class="text-center text-gray-500 mb-3">
+          or
+          <a
+            href="/src/login.html"
+            class="text-sm text-purple-700 hover:text-purple-600"
+            >login with existing account</a
+          >
+        </p>
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -49,4 +57,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>
