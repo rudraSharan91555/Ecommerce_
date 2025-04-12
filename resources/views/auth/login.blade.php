@@ -1,9 +1,20 @@
-<x-guest-layout>
+<x-app-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" class="w-[400px] mx-auto p-6 my-16 action="{{ route('login') }}">
         @csrf
+        <h2 class="text-2xl font-semibold text-center mb-5">
+            Login to your account
+          </h2>
+          <p class="text-center text-gray-500 mb-6">
+            or
+            <a
+              href="{{route('register') }}"
+              class="text-sm text-purple-700 hover:text-purple-600"
+              >create new account</a
+            >
+          </p>
 
         <!-- Email Address -->
         <div>
@@ -44,4 +55,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</x-app-layout>
