@@ -41,7 +41,9 @@ class Cart
     {
         $request = \request();
 
-        return json_encode($request->cookie('cart_items','[]'),true); 
+        // return json_encode($request->cookie('cart_items','[]'),true);
+        return json_decode($request->cookie('cart_items','[]'),true);
+         
     }    
     public static function getCountFromItems($cartItems)
     {
