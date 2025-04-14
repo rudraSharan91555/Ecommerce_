@@ -1,4 +1,12 @@
-<x-guest-layout>
+<x-app-layout>
+    <div class="w-[400px] mx-auto p-6 my-16">
+        <x-auth-session-status class="mb-4" :status="session('status')" />
+        <h2 class="text-2xl font-semibold text-center mb-5">
+            Reset Password
+        </h2>
+        <p class="text-center text-gray-500 mb-6">
+            Enter your email address and new password to reset your password.
+        </p>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -36,4 +44,5 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</div>
+</x-app-layout>
