@@ -6,15 +6,15 @@
     @foreach ( $products as $product )
     <!-- Product Item -->
     <div
-      x-data="productItem({
-        id: 1, 
-        image: 'img/1_1.jpg', 
-        title: 'Logitech G502 HERO High Performance Wired Gaming Mouse, HERO 25K Sensor, 25,600 DPI, RGB, Adjustable Weights, 11',
-        price: 17.99
-      })"
+      x-data="productItem({{ json_encode([
+        'id' => $product->id,
+        'title' => $product->title,
+        'image' => $product->image,
+        'price' => $product->price,
+      ] )}})"
       class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white"
     >
-      <a href="/src/product.html" class="block overflow-hidden aspect-w-3 aspect-h-2">
+      <a href="{{ route('product.view',$product->slug)}}" class="block overflow-hidden aspect-w-3 aspect-h-2">
         <img
           src="{{ $product->image }}"
           alt=""
@@ -23,7 +23,7 @@
       </a>
       <div class="p-4">
         <h3 class="text-lg">
-          <a href="/src/product.html">
+          <a href="{{ route('product.view',$product->slug)}}">
             {{ $product->title }}
           </a>
         </h3>
