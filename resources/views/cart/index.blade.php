@@ -22,10 +22,8 @@
                 return this.cartItems.reduce((accum, next) => accum + next.price * next.quantity, 0).toFixed(2)
             },
         }" class="bg-white p-4 rounded-lg shadow">
-            <!-- Product Items -->
             <template x-if="cartItems.length">
                 <div>
-                    <!-- Product Item -->
                     <template x-for="product of cartItems" :key="product.id">
                         <div x-data="productItem(product)">
                             <div
@@ -61,16 +59,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--/ Product Item -->
                             <hr class="my-5"/>
                         </div>
                     </template>
-                    <!-- Product Item -->
-
                     <div class="border-t border-gray-300 pt-4">
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal</span>
-                            <span id="cartTotal" class="text-xl" x-text="`$${cartTotal}`"></span>
+                            <span id="cartTotal" class="text-xl" x-text="`Rs.${cartTotal}`"></span>
                         </div>
                         <p class="text-gray-500 mb-6">
                             Shipping and taxes calculated at checkout.
