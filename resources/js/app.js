@@ -11,10 +11,7 @@ Alpine.plugin(collapse)
 window.Alpine = Alpine;
 
 document.addEventListener("alpine:init", () => {
-  Alpine.store('header', {
-    cartItems: 0,
-    watchlistItems: 0
-  })
+  
  
     Alpine.data("toast", () => ({
       visible: false,

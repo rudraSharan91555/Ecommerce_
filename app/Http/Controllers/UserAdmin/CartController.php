@@ -31,13 +31,19 @@ class CartController extends Controller
         $quantity = $request->post('quantity', 1);
         $user = $request->user();
         if ($user) {
-            $cartItem = CartItem::where('user_id', $user->id, 'product_id', $product->id)->first();
+            // $cartItem = CartItem::where('user_id', $user->id, 'product_id', $product->id)->first();
+            $cartItem = CartItem::where([
+                'user_id' => $user->id,
+                'product_id' => $product->id
+            ])->first();
+            
             if ($cartItem) {
                 $cartItem->quantity += $quantity;
                 $cartItem->update();
             } else{
                 $data = [
-                    'user_id' => $user()->id,
+                    // 'user_id' => $user()->id,
+                    'user_id' => $user->id,
                     'product_id' => $product->id,
                     'quantity' => $quantity
                 ];
@@ -97,7 +103,7 @@ class CartController extends Controller
 
     public function updateQuantity(Request $request, Product $product) 
     {
-        $quantity = (int)$request->post('quantity', );
+        $quantity = (int)$request->post('quantity', 1);
         $user = $request->user();
         if($user){
             CartItem::where(['user_id'=> $request->user()->id,'product_id'=>$product->id])->update(['quantity'=>$quantity]);
