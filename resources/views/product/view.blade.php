@@ -3,7 +3,7 @@
         <div class="grid gap-6 grid-cols-1 lg:grid-cols-5">
             <div class="lg:col-span-3">
                 <div x-data="{
-                    images: ['{{$product->image}}', 'img/1_2.jpg', 'img/1_3.jpg', 'img/1_4.jpg'],
+                    images: ['{{$product->image}}'],
                     activeImage: null,
                     prev() {
                         let index = this.images.indexOf(this.activeImage);

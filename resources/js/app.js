@@ -3,6 +3,7 @@ import './bootstrap';
 import Alpine from 'alpinejs';
 import persist from '@alpinejs/persist'
 import collapse from '@alpinejs/collapse'
+import {post} from './http.js'
 
 Alpine.plugin(persist)
 Alpine.plugin(collapse)
@@ -10,7 +11,11 @@ Alpine.plugin(collapse)
 window.Alpine = Alpine;
 
 document.addEventListener("alpine:init", () => {
-    
+  Alpine.store('header', {
+    cartItems: 0,
+    watchlistItems: 0
+  })
+ 
     Alpine.data("toast", () => ({
       visible: false,
       delay: 5000,
@@ -55,21 +60,21 @@ document.addEventListener("alpine:init", () => {
     Alpine.data("productItem", (product) => {
       return {
         product,
-        addToCart(quantity = 1) {
+        addToCart( quantity = 1) {
           post(this.product.addToCartUrl, {quantity})
-            .then(result => {
-              this.$dispatch('cart-change', {count: result.count})
-              this.$dispatch("notify", {
-                message: "The item was added into the cart",
-              });
+          .then(result => {
+            this.$dispatch('cart-change', {count: result.count})
+            this.$dispatch("notify", {
+              message: "The item was added into the cart",
+            });
+          })
+          .catch(response => {
+            console.log(response);
+            this.$dispatch('notify', {
+              message: response.message || 'Server Error. Please try again.',
+              type: 'error'
             })
-            .catch(response => {
-              console.log(response);
-              this.$dispatch('notify', {
-                message: response.message || 'Server Error. Please try again.',
-                type: 'error'
-              })
-            })
+          })
         },
         removeItemFromCart() {
           post(this.product.removeUrl)
@@ -98,6 +103,8 @@ document.addEventListener("alpine:init", () => {
         },
       };
     });
+  
+    
   });
   
   

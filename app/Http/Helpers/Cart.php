@@ -4,8 +4,8 @@ namespace App\Http\Helpers;
 
 use App\Models\CartItem;
 
-class Cart 
-{
+class Cart   
+{ 
     public static function getCartItemsCount(): int
     {
         $request = \request();

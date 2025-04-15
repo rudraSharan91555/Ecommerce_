@@ -1,5 +1,8 @@
 <header
-      x-data="{mobileMenuOpen: false}"
+      x-data="{mobileMenuOpen: false,
+      cartItemsCount: {{ \App\Http\Helpers\Cart::getCartItemsCount() }},
+      {{-- cartItemsCount:{{Cart::getCartItemsCount()}}, --}}
+      }"
       class="flex justify-between bg-slate-800 shadow-md text-white"
     >
       <div>
@@ -14,7 +17,7 @@
         <ul>
           <li>
             <a
-              href="/src/cart.html"
+              href="{{ route('cart.index') }}"
               class="relative flex items-center justify-between py-2 px-3 transition-colors hover:bg-slate-800"
             >
               <div class="flex items-center">
@@ -36,9 +39,9 @@
               </div>
               <!-- Cart Items Counter -->
               <small
-                x-show="$store.header.cartItems"
+                x-show="cartItemsCount"
                 x-transition
-                x-text="$store.header.cartItems"
+                x-text="cartItemsCount"
                 class="py-[2px] px-[8px] rounded-full bg-red-500"
               ></small>
               <!--/ Cart Items Counter -->
@@ -107,7 +110,7 @@
                   My Profile
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a
                   href="/src/watchlist.html"
                   class="flex items-center px-3 py-2 hover:bg-slate-900"
@@ -135,7 +138,7 @@
                     class="py-[2px] px-[8px] rounded-full bg-red-500"
                   ></small>
                 </a>
-              </li>
+              </li> --}}
               <li class="hover:bg-slate-900">
                 <a
                   href="/src/orders.html"
@@ -221,7 +224,7 @@
         <ul class="grid grid-flow-col items-center">
           <li>
             <a
-              href="/src/cart.html"
+              href="{{ route('cart.index') }}"
               class="relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
             >
               <svg
@@ -240,10 +243,10 @@
               </svg>
               Cart
               <small
-                x-show="$store.header.cartItems"
+                x-show="cartItemsCount"
                 x-transition
                 x-cloak
-                x-text="$store.header.cartItems"
+                x-text="cartItemsCount"
                 class="absolute z-[100] top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-500"
               ></small>
             </a>
@@ -313,7 +316,7 @@
                   My Profile
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a
                   href="/src/watchlist.html"
                   class="flex items-center justify-between px-3 py-2 hover:bg-slate-900"
@@ -343,7 +346,7 @@
                     class="py-[2px] px-[8px] rounded-full bg-red-500"
                   ></small>
                 </a>
-              </li>
+              </li> --}}
               <li>
                 <a
                   href="/src/orders.html"

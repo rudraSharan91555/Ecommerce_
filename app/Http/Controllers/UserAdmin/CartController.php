@@ -5,13 +5,14 @@ namespace App\Http\Controllers\UserAdmin;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Cart;
 use Illuminate\Http\Request;
-use App\Models\CartItem;
+use App\Models\CartItem; 
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {
+    
     public function index()
     {
         $cartItems = Cart::getCartItems();
@@ -36,7 +37,7 @@ class CartController extends Controller
                 $cartItem->update();
             } else{
                 $data = [
-                    'user_id' => $user->id,
+                    'user_id' => $user()->id,
                     'product_id' => $product->id,
                     'quantity' => $quantity
                 ];
@@ -49,7 +50,7 @@ class CartController extends Controller
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             $productFound = false;
             foreach($cartItems as &$item){
-                if($item['product_id'] == $product->id){
+                if($item['product_id'] === $product->id){
                     $item['quantity'] += $quantity;
                     $productFound = true;
                     break;
@@ -63,7 +64,7 @@ class CartController extends Controller
                     'price' => $product->price
                 ];
             }
-            Cookie::queue('cart_items', json_decode($cartItems), 60 * 24 * 7);
+            Cookie::queue('cart_items', json_encode($cartItems), 60 * 24 * 30);
             return response(['count' => Cart::getCountFromItems($cartItems)]);
         }
     }
@@ -82,7 +83,7 @@ class CartController extends Controller
         }else{
             $cartItems = json_decode($request->cookie('cart_items', '[]'), true);
             foreach($cartItems as $i => &$item){
-                if($item['product_id'] == $product->id){
+                if($item['product_id'] === $product->id){
                     array_splice($cartItems, $i, 1);
                     break;
                 }
@@ -106,7 +107,7 @@ class CartController extends Controller
         }else{
             $cartItems = json_decode($request->cookie('cart_items','[]'),true);
             foreach($cartItems as &$item){
-                if($item['product_id'] == $product->id){
+                if($item['product_id'] === $product->id){
                     $item['quantity'] = $quantity;
                     break;
                 }
