@@ -18,14 +18,12 @@ Route::middleware(['guestOrVerified'])->group(function () {
     });
 });
 
-
-
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::middleware(['auth','verified'])->group(function(){
+    Route::get('/profile',[ProfileController::class,'view'])->name('profile');
+    Route::post('/profile',[ProfileController::class,'store'])->name('profile.update');
 });
+
+
+
 
 require __DIR__.'/auth.php';
