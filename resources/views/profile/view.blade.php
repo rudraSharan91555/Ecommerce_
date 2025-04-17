@@ -255,7 +255,7 @@
                 </form>
             </div>
             <div class="bg-white p-3 shadow rounded-lg">
-                <form action="#" method="post">
+                <form action="{{route('profile_password.update')}}" method="post">
                     @csrf
                     <h2 class="text-xl font-semibold mb-2">Update Password</h2>
                     <div class="mb-3">

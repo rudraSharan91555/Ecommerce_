@@ -32,6 +32,7 @@
     'label' => null,
     'value' => '',
     'placeholder' => '',
+    'autocomplete' => null
 ])
 
 <div class="mb-3">
@@ -56,6 +57,7 @@
             id="{{ $name }}"
             value="{{ $value }}"
             placeholder="{{ $placeholder }}"
+            autocomplete="{{ $autocomplete }}"
             {{ $attributes->merge(['class' => 'w-full border-gray-300 rounded focus:ring-purple-600 focus:border-purple-600']) }}
         />
     @endif
