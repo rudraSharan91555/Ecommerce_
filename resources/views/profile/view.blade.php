@@ -46,62 +46,48 @@
                         }
                         return null;
                     }
-                }" action="{{route('profile.update')}}" method="post">
+                }" action="{{ route('profile.update') }}" method="post">
                     @csrf
                     <h2 class="text-xl font-semibold mb-2">Profile Details</h2>
                     <div class="grid grid-cols-2 gap-3 mb-3">
-                        <div>
-                            <x-input-label for="first_name" value="First Name" />
-                            <input
-                                type="text"
-                                id="first_name"
-                                name="first_name"
-                                value="{{ old('first_name', $customer->first_name) }}"
-                                placeholder="First Name"
-                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            />
-                        </div>
-                        <div>
-                            <x-input-label for="last_name" value="Last Name" />
-                            <input
-                                type="text"
-                                id="last_name"
-                                name="last_name"
-                                value="{{ old('last_name', $customer->last_name) }}"
-                                placeholder="Last Name"
-                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            />
-                        </div>
+                        <x-input-field
+                            type="text"
+                            name="first_name"
+                            value="{{old('first_name', $customer->first_name)}}"
+                            placeholder="First Name"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
+                        <x-input-field
+                            type="text"
+                            name="last_name"
+                            value="{{old('last_name', $customer->last_name)}}"
+                            placeholder="Last Name"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                        />
                     </div>
-                    
                     <div class="mb-3">
-                        <x-input-label for="email" value="Your Email" />
-                        <input
-                            type="email"
-                            id="email"
+                        <x-input-field
+                            type="text"
                             name="email"
-                            value="{{ old('email', $user->email) }}"
+                            value="{{old('email', $user->email)}}"
                             placeholder="Your Email"
                             class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-                    
                     <div class="mb-3">
-                        <x-input-label for="phone" value="Phone" />
-                        <input
+                        <x-input-field
                             type="text"
                             name="phone"
-                            value="{{ old('phone', $customer->phone) }}"
+                            value="{{old('phone', $customer->phone)}}"
                             placeholder="Your Phone"
-                            class="w-full border-gray-300 focus:border-purple-600 focus:ring-purple-600 rounded-md shadow-sm"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-                    
+
                     <h2 class="text-xl mt-6 font-semibold mb-2">Billing Address</h2>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
-                            <x-input-label for="billing_address1" value="Address 1" />
-                            <input
+                            <x-input-field
                                 type="text"
                                 name="billing[address1]"
                                 x-model="billingAddress.address1"
@@ -110,20 +96,18 @@
                             />
                         </div>
                         <div>
-                            <x-input-label value="Address 2" />
-                            <input
+                            <x-input-field
                                 type="text"
                                 name="billing[address2]"
                                 x-model="billingAddress.address2"
                                 placeholder="Address 2"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            />                            
+                            />
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mb-3">                        
-                        <div class="mb-3">
-                            <x-input-label value="City" />
-                            <input
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <x-input-field
                                 type="text"
                                 name="billing[city]"
                                 x-model="billingAddress.city"
@@ -131,9 +115,8 @@
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
                         </div>
-                        <div class="mb-3">
-                            <x-input-label value="ZipCode" />
-                            <input
+                        <div>
+                            <x-input-field
                                 type="text"
                                 name="billing[zipcode]"
                                 x-model="billingAddress.zipcode"
@@ -141,57 +124,45 @@
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
                         </div>
-                        
                     </div>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
-                            <div class="mb-3">
-                                <x-input-label value="Country Code" />
-                                <select
-                                    name="billing[country_code]"
-                                    x-model="billingAddress.country_code"
-                                    class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                >
-                                    <option value="">Select Country</option>
-                                    <template x-for="country of countries" :key="country.code">
-                                        <option :value="country.code" x-text="country.name"></option>
-                                    </template>
-                                </select>
-                            </div>
+                            <x-input-field type="select"
+                                     name="billing[country_code]"
+                                     x-model="billingAddress.country_code"
+                                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+                                <option value="">Select Country</option>
+                                <template x-for="country of countries" :key="country.code">
+                                    <option :selected="country.code === billingAddress.country_code"
+                                            :value="country.code" x-text="country.name"></option>
+                                </template>
+                            </x-input-field>
                         </div>
                         <div>
-                            <template x-if="billingAddress.country_code && billingCountryStates && Object.keys(billingCountryStates).length">
-                                <div>
-                                    <x-input-label value="State" />
-                                    <select
-                                        name="billing[state]"
-                                        x-model="billingAddress.state"
-                                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                    >
-                                        <option value="">Select State</option>
-                                        <template x-for="[code, state] of Object.entries(billingCountryStates)" :key="code">
-                                            <option :value="code" x-text="state"></option>
-                                        </template>
-                                    </select>
-                                </div>
+                            <template x-if="billingCountryStates">
+                                <x-input-field type="select"
+                                         name="billing[state]"
+                                         x-model="billingAddress.state"
+                                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+                                    <option value="">Select State</option>
+                                    <template x-for="[code, state] of Object.entries(billingCountryStates)"
+                                              :key="code">
+                                        <option :selected="code === billingAddress.state"
+                                                :value="code" x-text="state"></option>
+                                    </template>
+                                </x-input-field>
                             </template>
-                    
-                            <template x-if="!billingAddress.country_code || !billingCountryStates || !Object.keys(billingCountryStates).length">
-                                <div>
-                                    <x-input-label value="State" />
-                                    <input
-                                        type="text"
-                                        name="billing[state]"
-                                        x-model="billingAddress.state"
-                                        placeholder="State"
-                                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                    />
-                                </div>
+                            <template x-if="!billingCountryStates">
+                                <x-input-field
+                                    type="text"
+                                    name="billing[state]"
+                                    x-model="billingAddress.state"
+                                    placeholder="State"
+                                    class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                                />
                             </template>
                         </div>
                     </div>
-                    
-
 
                     <div class="flex justify-between mt-6 mb-2">
                         <h2 class="text-xl font-semibold">Shipping Address</h2>
@@ -203,22 +174,17 @@
                     </div>
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
-                            <x-input-label for="shipping_address1" value="Address 1" />
-                            <input
+                            <x-input-field
                                 type="text"
-                                id="shipping_address1"
                                 name="shipping[address1]"
                                 x-model="shippingAddress.address1"
                                 placeholder="Address 1"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
                         </div>
-                    
                         <div>
-                            <x-input-label for="shipping_address2" value="Address 2" />
-                            <input
+                            <x-input-field
                                 type="text"
-                                id="shipping_address2"
                                 name="shipping[address2]"
                                 x-model="shippingAddress.address2"
                                 placeholder="Address 2"
@@ -226,129 +192,96 @@
                             />
                         </div>
                     </div>
-                    
                     <div class="grid grid-cols-2 gap-3 mb-3">
                         <div>
-                            <x-input-label for="shipping_city" value="City" />
-                            <input
+                            <x-input-field
                                 type="text"
-                                id="shipping_city"
                                 name="shipping[city]"
                                 x-model="shippingAddress.city"
                                 placeholder="City"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
                         </div>
-                        
                         <div>
-                            <x-input-label for="shipping_zipcode" value="ZipCode" />
-                            <input
-                                type="text"
-                                id="shipping_zipcode"
+                            <x-input-field
                                 name="shipping[zipcode]"
                                 x-model="shippingAddress.zipcode"
+                                type="text"
                                 placeholder="ZipCode"
                                 class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                             />
                         </div>
                     </div>
-
                     <div class="grid grid-cols-2 gap-3 mb-3">
-                        <!-- Country Select -->
                         <div>
-                            <x-input-label for="shipping_country_code" value="Select Country" />
-                            <select
-                                name="shipping[country_code]"
-                                x-model="shippingAddress.country_code"
-                                id="shipping_country_code"
-                                class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                            >
+                            <x-input-field type="select"
+                                     name="shipping[country_code]"
+                                     x-model="shippingAddress.country_code"
+                                     class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
                                 <option value="">Select Country</option>
                                 <template x-for="country of countries" :key="country.code">
-                                    <option :value="country.code" x-text="country.name"></option>
+                                    <option :selected="country.code === shippingAddress.country_code"
+                                            :value="country.code" x-text="country.name"></option>
                                 </template>
-                            </select>
+                            </x-input-field>
                         </div>
-                    
-                        <!-- State Select or Text -->
                         <div>
-                            <!-- State Dropdown if states available -->
-                            <template x-if="shippingCountryStates && Object.keys(shippingCountryStates).length">
-                                <div>
-                                    <x-input-label for="shipping_state" value="Select State" />
-                                    <select
-                                        name="shipping[state]"
-                                        x-model="shippingAddress.state"
-                                        id="shipping_state"
-                                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                    >
-                                        <option value="">Select State</option>
-                                        <template x-for="[code, state] of Object.entries(shippingCountryStates)" :key="code">
-                                            <option :value="code" x-text="state"></option>
-                                        </template>
-                                    </select>
-                                </div>
+                            <template x-if="shippingCountryStates">
+                                <x-input-field type="select"
+                                         name="shipping[state]"
+                                         x-model="shippingAddress.state"
+                                         class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded">
+                                    <option value="">Select State</option>
+                                    <template x-for="[code, state] of Object.entries(shippingCountryStates)"
+                                              :key="code">
+                                        <option :selected="code === shippingAddress.state"
+                                                :value="code" x-text="state"></option>
+                                    </template>
+                                </x-input-field>
                             </template>
-                    
-                            <!-- Plain input if no state list -->
-                            <template x-if="!shippingCountryStates || !Object.keys(shippingCountryStates).length">
-                                <div>
-                                    <x-input-label for="shipping_state_text" value="State" />
-                                    <input
-                                        type="text"
-                                        name="shipping[state]"
-                                        x-model="shippingAddress.state"
-                                        id="shipping_state_text"
-                                        placeholder="State"
-                                        class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
-                                    />
-                                </div>
+                            <template x-if="!shippingCountryStates">
+                                <x-input-field
+                                    type="text"
+                                    name="shipping[state]"
+                                    x-model="shippingAddress.state"
+                                    placeholder="State"
+                                    class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                                />
                             </template>
                         </div>
                     </div>
-                    
 
-                    <x-primary-button class="w-full text-center">Update</x-primary-button>
-
+                    <x-primary-button class="w-full">Update</x-primary-button>
                 </form>
             </div>
             <div class="bg-white p-3 shadow rounded-lg">
-                <form action="{{route('profile.update')}}" method="post">
+                <form action="#" method="post">
                     @csrf
                     <h2 class="text-xl font-semibold mb-2">Update Password</h2>
                     <div class="mb-3">
-                        <x-input-label for="old_password" :value="'Your Current Password'" />
-                        <x-text-input 
-                            id="old_password"
+                        <x-input-field
                             type="password"
                             name="old_password"
                             placeholder="Your Current Password"
-                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded mt-1"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-                    
                     <div class="mb-3">
-                        <x-input-label for="new_password" :value="'New Password'" />
-                        <x-text-input 
-                            id="new_password"
+                        <x-input-field
                             type="password"
                             name="new_password"
                             placeholder="New Password"
-                            class="w-full mt-1 focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-                    
                     <div class="mb-3">
-                        <x-input-label for="new_password_confirmation" :value="'Repeat New Password'" />
-                        <x-text-input 
-                            id="new_password_confirmation"
+                        <x-input-field
                             type="password"
                             name="new_password_confirmation"
                             placeholder="Repeat New Password"
-                            class="w-full mt-1 focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
+                            class="w-full focus:border-purple-600 focus:ring-purple-600 border-gray-300 rounded"
                         />
                     </div>
-                    
                     <x-primary-button>Update</x-primary-button>
                 </form>
             </div>
