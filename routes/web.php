@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserAdmin\CartController;
+use App\Http\Controllers\UserAdmin\CheckoutController;
 use App\Http\Controllers\UserAdmin\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,9 @@ Route::middleware(['auth','verified'])->group(function(){
     Route::get('/profile',[ProfileController::class,'view'])->name('profile');
     Route::post('/profile',[ProfileController::class, 'store'])->name('profile.update');
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
+    Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::post('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
 });
 
 

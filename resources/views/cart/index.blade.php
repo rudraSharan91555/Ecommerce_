@@ -71,7 +71,7 @@
                             Shipping and taxes calculated at checkout.
                         </p>
 
-                        <form action="#" method="post">
+                        <form action="{{route('cart.checkout')}}" method="post">
                             @csrf
                             <button type="submit" class="btn-primary w-full py-3 text-lg">
                                 Proceed to Checkout
