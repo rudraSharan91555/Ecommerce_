@@ -12,27 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            // Check if the 'session_id' column exists first, to avoid the "column already exists" error
+            // Add session_id column if it doesn't exist
             if (!Schema::hasColumn('payments', 'session_id')) {
                 $table->string('session_id')->nullable();
             }
 
-            // Check if the 'total_price' column exists first
+            // Add total_price column if it doesn't exist
             if (!Schema::hasColumn('payments', 'total_price')) {
                 $table->decimal('total_price', 10, 2)->nullable();
             }
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down(): void
     {
         Schema::table('payments', function (Blueprint $table) {
-            // Drop columns if they exist
+            // Drop session_id and total_price columns if they exist
             if (Schema::hasColumn('payments', 'session_id')) {
                 $table->dropColumn('session_id');
             }
