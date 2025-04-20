@@ -26,6 +26,7 @@ Route::middleware(['auth','verified'])->group(function(){
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
     Route::post('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::post('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
+    Route::post('checkout/failure', [CheckoutController::class, 'fail'])->name('checkout.failure');
 });
 
 
