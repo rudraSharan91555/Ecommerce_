@@ -5,7 +5,6 @@ namespace App\Http\Controllers\UserAdmin;
 use App\Enums\OrderStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Cart;
-use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
@@ -43,7 +42,7 @@ class CheckoutController extends Controller
             'receipt' => 'order_rcptid_' . uniqid(),
             'amount' => $totalAmount, 
             'currency' => 'INR',
-            'payment_capture' => 1,
+            'payment_capture' => 1
         ];
 
         $razorpayOrder = $api->order->create($orderData);
@@ -81,11 +80,8 @@ class CheckoutController extends Controller
         ]);
     }
 
- 
-
-public function success(Request $request)
-{   
-    /** @var \App\Models\User $user */
+    public function success(Request $request)
+{
     $input = $request->all();
     $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
@@ -96,6 +92,7 @@ public function success(Request $request)
             'razorpay_signature' => $input['razorpay_signature']
         ];
         $api->utility->verifyPaymentSignature($attributes);
+        
         DB::table('payments')
             ->where('order_id', $input['razorpay_order_id'])
             ->update([
@@ -107,7 +104,10 @@ public function success(Request $request)
             ]);
 
         Log::info('Payment updated successfully', $input);
-        $user = $request->user();
+
+        $user = $request->user(); 
+        $userName = $user->name; 
+
         list($products, $cartItems) = Cart::getProductsAndCartItems();
 
         $totalAmount = 0;
@@ -115,6 +115,7 @@ public function success(Request $request)
             $quantity = $cartItems[$product->id]['quantity'] ?? 1;
             $totalAmount += $product->price * $quantity;
         }
+
         $order = Order::create([
             'status' => 'paid',
             'total_price' => $totalAmount,
@@ -133,14 +134,10 @@ public function success(Request $request)
             ]);
         }
 
-        CartItem::where(['user_id' => $user->id])->delete();
-
         $payment = Payment::where('razorpay_payment_id', $input['razorpay_payment_id'])->first();
-
-        return view('cart.checkout-success', [
-            'payment' => $payment,
-            'userName' => $user->name 
-        ]);
+        Cart::clear();
+        
+        return view('cart.checkout-success', compact('payment', 'userName'));  // Yahan 'userName' ko pass kar rahe hain
 
     } catch (\Exception $e) {
         Log::error('Payment verification failed', [
@@ -152,9 +149,13 @@ public function success(Request $request)
     }
 }
 
-
     public function fail(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        return view('checkout.failure', ['message' => ""]);
+    }
+
+    public function checkoutOrder(Order $order, Request $request){
+        dd($order);
     }
 }
