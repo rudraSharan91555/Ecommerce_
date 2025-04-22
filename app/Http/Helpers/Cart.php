@@ -6,6 +6,7 @@ namespace App\Http\Helpers;
 use App\Models\Product;
 use App\Models\CartItem;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cookie;
 
 class Cart   
 { 
@@ -77,7 +78,20 @@ class Cart
             CartItem::insert($newCartItems);
         }
     }
-
+    public static function clear()
+    {
+        $request = \request();
+        $user = $request->user();
+    
+        // Agar user logged-in hai, toh database se cart items delete karenge
+        if ($user) {
+            CartItem::where('user_id', $user->id)->delete();  // Delete all cart items for the logged-in user
+        } else {
+            // Agar user guest hai, toh cookie se cart items remove karenge
+            Cookie::queue(Cookie::forget('cart_items'));  // Remove the 'cart_items' cookie for guest user
+        }
+    }
+    
     public static function getProductsAndCartItems(): array 
 {
     $cartItems = self::getCartItems();

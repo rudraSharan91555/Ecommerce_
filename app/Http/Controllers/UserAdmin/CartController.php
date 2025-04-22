@@ -18,13 +18,7 @@ class CartController extends Controller
 
     public function index()
     {
-        // $cartItems = Cart::getCartItems();
-
-        // $ids = Arr::pluck($cartItems, 'product_id');
-        // $products = Product::query()->whereIn('id', $ids)->get();
-        // $cartItems = Arr::keyBy($cartItems, 'product_id');
-
-        // $products = $this->getProductsAndCartItems();
+       
         list($products, $cartItems) = Cart::getProductsAndCartItems();
 
         $total = 0;
@@ -130,55 +124,6 @@ class CartController extends Controller
             return response(['count' => Cart::getCountFromItems($cartItems)]);
         }
     }
-
-// public function checkout(Request $request)
-// {
-//     $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
-
-//     list($products, $cartItems) = $this->getProductsAndCartItems();
-
-//     $totalAmount = 0;
-//     $lineItems = [];  
-//     foreach ($products as $product) {
-//         $quantity = $cartItems[$product->id]['quantity'] ?? 1;
-//         $totalAmount += $product->price * $quantity * 100; 
-//         $lineItems[] = [
-//             'name' => $product->title, 
-//             'quantity' => $quantity,
-//             'image' => $product->image,
-//             'currency' => 'INR',
-//             'unit_amount' => $product->price * 100,  
-//         ];
-//     }
-//     // dd($lineItems);
-
-//     $orderData = [
-//         'receipt' => 'order_rcptid_' . uniqid(),
-//         'amount' => $totalAmount, 
-//         'currency' => 'INR',
-//         'payment_capture' => 1 
-//     ];
-
-    
-//     $razorpayOrder = $api->order->create($orderData);
-//     $orderId = $razorpayOrder['id'];
-//     return view('checkout', [
-//         'order_id' => $orderId,
-//         'amount' => $totalAmount,
-//         'razorpay_key' => config('services.razorpay.key'),
-//         'lineItems' => $lineItems  
-//     ]);
-// }
-
-// private function getProductsAndCartItems(): array 
-// {
-//     $cartItems = Cart::getCartItems();
-//     $ids = Arr::pluck($cartItems, 'product_id');
-//     $products = Product::query()->whereIn('id', $ids)->get();
-//     $cartItems = Arr::keyBy($cartItems, 'product_id');
-
-//     return [$products, $cartItems];
-// }
 
 
 }

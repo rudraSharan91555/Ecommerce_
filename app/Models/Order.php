@@ -45,21 +45,5 @@ class Order extends Model
     }
 }
 
-// namespace App\Models;
 
-// use App\Enums\OrderStatus;
-// use Illuminate\Database\Eloquent\Model;
-
-// class Order extends Model
-// {
-//     protected $fillable = [
-//         'status',
-//         'amount',
-//         'total_price', 
-//         'created_at',
-//         'updated_at',
-//     ];
-
-    
-// }
 

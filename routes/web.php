@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserAdmin\CartController;
 use App\Http\Controllers\UserAdmin\CheckoutController;
@@ -24,12 +25,20 @@ Route::middleware(['auth','verified'])->group(function(){
     Route::post('/profile',[ProfileController::class, 'store'])->name('profile.update');
     Route::post('/profile/password-update', [ProfileController::class, 'passwordUpdate'])->name('profile_password.update');
     Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('cart.checkout');
+    Route::post('/checkout/:order', [CheckoutController::class, 'checkoutOrder'])->name('cart.checkout-order');
     Route::post('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::post('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
+<<<<<<< HEAD
     Route::post('checkout/failure', [CheckoutController::class, 'fail'])->name('checkout.failure');
 });
 
+=======
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/orders/view/{order}', [OrderController::class, 'view'])->name('order.view');
+}); 
+>>>>>>> f541393ad57b8f78866a8cd75df297a6bd6ea996
 
 
+ 
 
 require __DIR__.'/auth.php';
