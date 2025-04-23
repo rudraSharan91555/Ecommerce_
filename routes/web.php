@@ -29,6 +29,7 @@ Route::middleware(['auth','verified'])->group(function(){
     Route::post('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
     Route::post('/checkout/failure', [CheckoutController::class, 'failure'])->name('checkout.failure');
 <<<<<<< HEAD
+<<<<<<< HEAD
     Route::post('checkout/failure', [CheckoutController::class, 'fail'])->name('checkout.failure');
 });
 
@@ -37,6 +38,14 @@ Route::middleware(['auth','verified'])->group(function(){
     Route::get('/orders/view/{order}', [OrderController::class, 'view'])->name('order.view');
 }); 
 >>>>>>> f541393ad57b8f78866a8cd75df297a6bd6ea996
+=======
+    Route::post('checkout/failure', [CheckoutController::class, 'fail'])->name('checkout.failure');
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/orders/{order}', [OrderController::class, 'view'])->name('order.view');
+});
+
+
+>>>>>>> dev
 
 
  
