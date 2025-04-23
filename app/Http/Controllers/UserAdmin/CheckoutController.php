@@ -162,14 +162,13 @@ public function checkoutOrder(Order $order, Request $request)
     $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
     $lineItems = [];
-    $totalAmount = 100; // Set 1 INR = 100 paise for testing
+    $totalAmount = 100; 
 
     foreach ($order->items as $item) {
-        $amount = $item->unit_price * 100; // price in paise
+        $amount = $item->unit_price * 100; 
         $quantity = $item->quantity;
-
-        // You can modify the amount here based on your need.
-        $totalAmount = 100; // Setting fixed amount for test purpose (1 INR)
+       
+        $totalAmount = 100; 
 
         $lineItems[] = [
             'name' => $item->product->title,
@@ -180,21 +179,20 @@ public function checkoutOrder(Order $order, Request $request)
         ];
     }
 
-    // Razorpay order creation with 1 INR (100 paise)
+    
     $razorpayOrder = $api->order->create([
         'receipt' => 'order_rcptid_' . uniqid(),
-        'amount' => $totalAmount, // Total amount in paise (1 INR = 100 paise)
+        'amount' => $totalAmount, 
         'currency' => 'INR',
-        'payment_capture' => 1 // Auto capture after payment
+        'payment_capture' => 1 
     ]);
 
     $razorpayOrderId = $razorpayOrder['id'];
     $sessionId = uniqid();
 
-    // Save payment session to DB
     DB::table('payments')->insert([
         'order_id' => $razorpayOrderId,
-        'amount' => $totalAmount / 100, // Store amount in INR
+        'amount' => $totalAmount / 100, 
         'status' => OrderStatus::Unpaid,
         'type' => 'razorpay',
         'session_id' => $sessionId,
@@ -218,7 +216,7 @@ public function checkoutOrder(Order $order, Request $request)
 
     return view('checkout', [
         'order_id' => $razorpayOrderId,
-        'amount' => $totalAmount / 100, // Display amount in INR
+        'amount' => $totalAmount / 100, 
         'razorpay_key' => config('services.razorpay.key'),
         'lineItems' => $lineItems,
         'success_url' => route('checkout.success', [], true),
