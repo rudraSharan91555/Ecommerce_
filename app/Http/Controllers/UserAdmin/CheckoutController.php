@@ -24,6 +24,7 @@ class CheckoutController extends Controller
 
         list($products, $cartItems) = Cart::getProductsAndCartItems();
 
+        $orderItems = [];
         $totalAmount = 0;
         $lineItems = [];
 
@@ -147,17 +148,83 @@ class CheckoutController extends Controller
             return view('cart.checkout-failure')->with('error', $e->getMessage());
         }
     }
-
-   
-    
+ 
     public function fail(Request $request)
     {
 
         return view('checkout.failure', ['message' => ""]);
     }
 
-    public function checkoutOrder(Order $order, Request $request)
-    {
-        dd($order);
+public function checkoutOrder(Order $order, Request $request)
+{
+    $user = $request->user();
+
+    $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
+
+    $lineItems = [];
+    $totalAmount = 100; // Set 1 INR = 100 paise for testing
+
+    foreach ($order->items as $item) {
+        $amount = $item->unit_price * 100; // price in paise
+        $quantity = $item->quantity;
+
+        // You can modify the amount here based on your need.
+        $totalAmount = 100; // Setting fixed amount for test purpose (1 INR)
+
+        $lineItems[] = [
+            'name' => $item->product->title,
+            'quantity' => $quantity,
+            'image' => $item->product->image,
+            'currency' => 'INR',
+            'unit_amount' => $amount,
+        ];
     }
+
+    // Razorpay order creation with 1 INR (100 paise)
+    $razorpayOrder = $api->order->create([
+        'receipt' => 'order_rcptid_' . uniqid(),
+        'amount' => $totalAmount, // Total amount in paise (1 INR = 100 paise)
+        'currency' => 'INR',
+        'payment_capture' => 1 // Auto capture after payment
+    ]);
+
+    $razorpayOrderId = $razorpayOrder['id'];
+    $sessionId = uniqid();
+
+    // Save payment session to DB
+    DB::table('payments')->insert([
+        'order_id' => $razorpayOrderId,
+        'amount' => $totalAmount / 100, // Store amount in INR
+        'status' => OrderStatus::Unpaid,
+        'type' => 'razorpay',
+        'session_id' => $sessionId,
+        'created_at' => now(),
+        'updated_at' => now(),
+        'created_by' => $user->id,
+        'updated_by' => $user->id,
+        'total_price' => $totalAmount / 100,
+    ]);
+
+    if ($order->payment) {
+        $order->payment->session_id = $sessionId;
+        $order->payment->order_id = $razorpayOrderId;
+        $order->payment->save();
+    }
+
+    Log::info('Razorpay order created', [
+        'order_id' => $razorpayOrderId,
+        'amount' => $totalAmount,
+    ]);
+
+    return view('checkout', [
+        'order_id' => $razorpayOrderId,
+        'amount' => $totalAmount / 100, // Display amount in INR
+        'razorpay_key' => config('services.razorpay.key'),
+        'lineItems' => $lineItems,
+        'success_url' => route('checkout.success', [], true),
+        'failure_url' => route('checkout.failure', [], true)
+    ]);
+}
+
+
 }
