@@ -47,10 +47,19 @@ class OrderController extends Controller
         return new OrderResource($order);
     }
 
-    // public function getStatuses()
-    // {
-    //     return OrderStatus::getStatuses();
-    // }
+    public function getStatuses()
+    {
+        return OrderStatus::getStatuses();
+    }
+
+    public function changeStatus(Order $order, $status){
+        echo '<pre>';
+        var_dump($order,$status);
+        echo '</pre>';
+        $order->status = $status;
+        $order->save();
+        return response('',200);
+    }
 
     // public function changeStatus(Order $order, $status)
     // {

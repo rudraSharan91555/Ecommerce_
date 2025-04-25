@@ -22,6 +22,7 @@
             <select v-model="order.status" @change="onStatusChange">
               <option v-for="status of orderStatuses" :value="status">{{ status }}</option>
             </select>
+            
           </td>
         </tr>
         <tr>
@@ -118,10 +119,16 @@ onMounted(() => {
     .then(({ data }) => orderStatuses.value = data)
 })
 
+// function onStatusChange() {
+//   axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
+//     .then(({ data }) => {
+//       store.commit('showToast', `Order status was successfully changed into "${order.value.status}"`)
+//     })
+// }
 function onStatusChange() {
   axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
     .then(({ data }) => {
-      store.commit('showToast', `Order status was successfully changed into "${order.value.status}"`)
+      console.log("Success");
     })
 }
 </script>
