@@ -162,13 +162,14 @@ public function checkoutOrder(Order $order, Request $request)
     $api = new Api(config('services.razorpay.key'), config('services.razorpay.secret'));
 
     $lineItems = [];
-    $totalAmount = 100; 
+    $totalAmount = 100; // Set 1 INR = 100 paise for testing
 
     foreach ($order->items as $item) {
-        $amount = $item->unit_price * 100; 
+        $amount = $item->unit_price * 100; // price in paise
         $quantity = $item->quantity;
-       
-        $totalAmount = 100; 
+
+        // You can modify the amount here based on your need.
+        $totalAmount = 100; // Setting fixed amount for test purpose (1 INR)
 
         $lineItems[] = [
             'name' => $item->product->title,
@@ -179,12 +180,12 @@ public function checkoutOrder(Order $order, Request $request)
         ];
     }
 
-    
+    // Razorpay order creation with 1 INR (100 paise)
     $razorpayOrder = $api->order->create([
         'receipt' => 'order_rcptid_' . uniqid(),
-        'amount' => $totalAmount, 
+        'amount' => $totalAmount, // Total amount in paise (1 INR = 100 paise)
         'currency' => 'INR',
-        'payment_capture' => 1 
+        'payment_capture' => 1 // Auto capture after payment
     ]);
 
     $razorpayOrderId = $razorpayOrder['id'];
@@ -192,7 +193,7 @@ public function checkoutOrder(Order $order, Request $request)
 
     DB::table('payments')->insert([
         'order_id' => $razorpayOrderId,
-        'amount' => $totalAmount / 100, 
+        'amount' => $totalAmount / 100, // Store amount in INR
         'status' => OrderStatus::Unpaid,
         'type' => 'razorpay',
         'session_id' => $sessionId,
@@ -216,7 +217,7 @@ public function checkoutOrder(Order $order, Request $request)
 
     return view('checkout', [
         'order_id' => $razorpayOrderId,
-        'amount' => $totalAmount / 100, 
+        'amount' => $totalAmount / 100, // Display amount in INR
         'razorpay_key' => config('services.razorpay.key'),
         'lineItems' => $lineItems,
         'success_url' => route('checkout.success', [], true),

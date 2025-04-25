@@ -50,6 +50,31 @@ export function getProduct({commit}, id) {
   return axiosClient.get(`/products/${id}`)
 }
 
+export function getOrders({commit, state}, {url = null, search = '', per_page, sort_field, sort_direction} = {}) {
+  commit('setOrders', [true])
+  url = url || '/orders'
+  const params = {
+    per_page: state.orders.limit,
+  }
+  return axiosClient.get(url, {
+    params: {
+      ...params,
+      search, per_page, sort_field, sort_direction
+    }
+  })
+    .then((response) => {
+      commit('setOrders', [false, response.data])
+    })
+    .catch(() => {
+      commit('setOrders', [false])
+    })
+}
+
+export function getOrder({commit}, id) {
+  // debugger;
+  return axiosClient.get(`/orders/${id}`)
+}
+
 export function  createProduct({commit}, product) {
   if (product.image instanceof File) {
     const form = new FormData();
