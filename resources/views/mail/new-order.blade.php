@@ -17,11 +17,11 @@
     </tr>
     <tr>
         <th>Order Price</th>
-        <td>${{$order->total_price}}</td>
+        <td>Rs{{$order->total_price}}</td>
     </tr>
     <tr>
         <th>Order Date</th>
-        <td>${{$order->created_at}}</td>
+        <td>{{$order->created_at}}</td>
     </tr>
 </table>
 <table>
@@ -37,7 +37,7 @@
                 <img src="{{$item->product->image}}" style="width: 100px">
             </td>
             <td>{{$item->product->title}}</td>
-            <td>${{$item->unit_price * $item->quantity}}</td>
+            <td>Rs {{$item->unit_price * $item->quantity}}</td>
             <td>{{$item->quantity}}</td>
         </tr>
     @endforeach
