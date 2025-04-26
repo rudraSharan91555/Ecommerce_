@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -14,6 +15,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('users', UserController::class);
+    // Route::apiResource('customers', CustomerController::class);
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
     Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);

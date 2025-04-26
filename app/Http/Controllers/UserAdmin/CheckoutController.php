@@ -263,7 +263,7 @@ class CheckoutController extends Controller
             $adminUsers = User::where('is_admin', 1)->get();
             foreach ($adminUsers as $admin) {
                 Mail::to($admin->email)->send(new NewOrderEmail($order, true));
-            }
+            }  
             Mail::to($order->user->email)->send(new NewOrderEmail($order, false));
         } catch (\Exception $e) {
             Log::critical('Email sending failed: ' . $e->getMessage());

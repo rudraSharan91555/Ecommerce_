@@ -53,7 +53,7 @@
                 <input type="hidden" name="razorpay_signature" id="razorpay_signature">
             </form>
 
-        </div>
+        </div>   
     </div>
 
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

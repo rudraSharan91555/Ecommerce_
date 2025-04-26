@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\UserAdmin;
-
+ 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;

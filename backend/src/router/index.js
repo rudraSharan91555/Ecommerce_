@@ -9,6 +9,7 @@ import store from "../store";
 import Products from "../views/Products/Products.vue";
 import Orders from "../views/Orders/Orders.vue";
 import OrderView from "../views/Orders/OrderView.vue";
+import Users from "../views/Users/Users.vue";
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
         path: 'products',
         name: 'app.products',
         component: Products
+      },
+      {
+        path: 'users',
+        name: 'app.users',
+        component: Users
       },
       {
         path: 'orders',

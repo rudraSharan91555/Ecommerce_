@@ -5,3 +5,4 @@
     Link to your order:
     <a href="{{route('order.view', $order, true)}}">Order #{{$order->id}}</a>
 </p>
+  
