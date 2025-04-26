@@ -138,6 +138,10 @@ export function updateUser({commit}, user) {
   return axiosClient.put(`/users/${user.id}`, user)
 }
 
+export function deleteUser({commit}, user) {
+  return axiosClient.delete(`/users/${user.id}`)
+}
+
 
 export function deleteProduct({commit}, id) {
   return axiosClient.delete(`/products/${id}`)
