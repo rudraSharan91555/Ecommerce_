@@ -119,18 +119,13 @@ onMounted(() => {
     .then(({ data }) => orderStatuses.value = data)
 })
 
-// function onStatusChange() {
-//   axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
-//     .then(({ data }) => {
-//       store.commit('showToast', `Order status was successfully changed into "${order.value.status}"`)
-//     })
-// }
 function onStatusChange() {
   axiosClient.post(`/orders/change-status/${order.value.id}/${order.value.status}`)
     .then(({ data }) => {
-      console.log("Success");
+      store.commit('showToast', `Order status was successfully changed into "${order.value.status}"`)
     })
 }
+
 </script>
 
 <style scoped>
