@@ -16,9 +16,7 @@ class Customer extends Model
 
     protected $fillable = ['first_name', 'last_name', 'phone', 'status',];
 
-    // protected $casts = [
-    //     'status' => CustomerStatus::class,  
-    // ];
+    
 
     public function user()
     {
