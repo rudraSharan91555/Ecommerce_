@@ -64,18 +64,60 @@ class CustomerController extends Controller
      * @param \App\Models\Customer     $customer
      * @return \Illuminate\Http\Response
      */
+    // public function update(CustomerRequest $request, Customer $customer)
+    // {
+    //     $customerData = $request->validated();
+    //     $customerData['updated_by'] = $request->user()->id;
+    //     $customerData['status'] = $customerData['status'] ? CustomerStatus::Active->value : CustomerStatus::Disabled->value;
+    //     $shippingData = $customerData['shippingAddress'];
+    //     $billingData = $customerData['billingAddress'];
+
+    //     DB::beginTransaction();
+    //     try {
+    //         $customer->update($customerData);
+
+    //         if ($customer->shippingAddress) {
+    //             $customer->shippingAddress->update($shippingData);
+    //         } else {
+    //             $shippingData['customer_id'] = $customer->user_id;
+    //             $shippingData['type'] = AddressType::Shipping->value;
+    //             CustomerAddress::create($shippingData);
+    //         }
+
+    //         if ($customer->billingAddress) {
+    //             $customer->billingAddress->update($billingData);
+    //         } else {
+    //             $billingData['customer_id'] = $customer->user_id;
+    //             $billingData['type'] = AddressType::Billing->value;
+    //             CustomerAddress::create($billingData);
+    //         }
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+
+    //         Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
+    //         throw $e;
+    //     }
+
+    //     DB::commit();
+
+    //     return new CustomerResource($customer);
+    // }
+
     public function update(CustomerRequest $request, Customer $customer)
     {
         $customerData = $request->validated();
         $customerData['updated_by'] = $request->user()->id;
+    
+        // Convert status from boolean to enum string value
         $customerData['status'] = $customerData['status'] ? CustomerStatus::Active->value : CustomerStatus::Disabled->value;
+    
         $shippingData = $customerData['shippingAddress'];
         $billingData = $customerData['billingAddress'];
-
+    
         DB::beginTransaction();
         try {
             $customer->update($customerData);
-
+    
             if ($customer->shippingAddress) {
                 $customer->shippingAddress->update($shippingData);
             } else {
@@ -83,7 +125,7 @@ class CustomerController extends Controller
                 $shippingData['type'] = AddressType::Shipping->value;
                 CustomerAddress::create($shippingData);
             }
-
+    
             if ($customer->billingAddress) {
                 $customer->billingAddress->update($billingData);
             } else {
@@ -93,15 +135,18 @@ class CustomerController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollBack();
-
+    
             Log::critical(__METHOD__ . ' method does not work. '. $e->getMessage());
             throw $e;
         }
-
+    
         DB::commit();
-
+    
         return new CustomerResource($customer);
     }
+    
+
+   
 
     /**
      * Remove the specified resource from storage.

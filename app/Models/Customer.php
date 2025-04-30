@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\AddressType;
+use App\Enums\CustomerStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -14,6 +15,10 @@ class Customer extends Model
     protected $primaryKey = 'user_id';
 
     protected $fillable = ['first_name', 'last_name', 'phone', 'status',];
+
+    // protected $casts = [
+    //     'status' => CustomerStatus::class,  
+    // ];
 
     public function user()
     {
