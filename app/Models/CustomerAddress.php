@@ -19,8 +19,8 @@ class CustomerAddress extends Model
         return $this->hasOne(Customer::class,'user_id', 'customer_id');
     }
 
-    // public function country(): BelongsTo
-    // {
-    //     return $this->belongsTo(Country::class, 'country_code', 'code');
-    // }
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_code', 'code');
+    }
 }

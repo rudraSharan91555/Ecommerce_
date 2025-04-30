@@ -58,7 +58,8 @@ export function setCustomers(state, [loading, data = null]) {
       total: data.meta.total,
     }
   }
-  state.products.loading = loading;
+  // state.products.loading = loading;
+  state.customers.loading = loading;
 }
 
 export function setOrders(state, [loading, data = null]) {
@@ -87,4 +88,19 @@ export function showToast(state, message) {
 export function hideToast(state) {
   state.toast.show = false;
   state.toast.message = '';
+}
+
+
+// Add this at the top or bottom of mutations.js
+
+export function setCountries(state, countries) {
+  state.countries = countries;
+}
+
+export function setCountriesLoading(state, loading) {
+  state.countriesLoading = loading;
+}
+
+export function setCountriesError(state, error) {
+  state.countriesError = error;
 }

@@ -110,6 +110,17 @@ export function deleteCustomer({commit}, customer) {
   return axiosClient.delete(`/customers/${customer.id}`)
 }
 
+export function getCountries({ commit }) {
+  return axiosClient.get('countries')
+    .then(({ data }) => {
+      console.log('Countries Response:', data); 
+      commit('setCountries', Array.isArray(data) ? data : []);
+    })
+    .catch((error) => {
+      console.error("Error fetching countries:", error);
+      commit('setCountries', []); 
+    });
+}
 
 export function getOrders({commit, state}, {url = null, search = '', per_page, sort_field, sort_direction} = {}) {
   commit('setOrders', [true])

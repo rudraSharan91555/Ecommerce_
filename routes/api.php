@@ -18,6 +18,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::apiResource('products', ProductController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('customers', CustomerController::class);
+    Route::get('countries', [CustomerController::class, 'countries']);
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
     Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);

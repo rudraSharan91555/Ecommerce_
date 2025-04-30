@@ -70,7 +70,6 @@
         </td>
         <td class="border-b p-2 max-w-[200px] whitespace-nowrap overflow-hidden text-ellipsis">
           {{ customer.email }}
-            <!-- email -->
         </td>
         <td class="border-b p-2">
           {{ customer.phone }}
@@ -251,6 +250,10 @@ function deleteCustomer(customer) {
       store.commit('showToast', 'Customer has been successfully deleted');
       store.dispatch('getCustomers')
     })
+}
+
+function editCustomer(customer) {
+  emit('clickEdit', customer)
 }
 
 </script>
