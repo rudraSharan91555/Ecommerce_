@@ -127,4 +127,5 @@ class CustomerController extends Controller
     {
         return CountryResource::collection(Country::query()->orderBy('name', 'asc')->get());
     }
+
 }
