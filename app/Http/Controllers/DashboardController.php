@@ -30,4 +30,6 @@ class DashboardController extends Controller
     {
         return Order::where('status',OrderStatus::Paid->value)->sum('total_price');
     }
+    
+
 }
