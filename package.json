@@ -30,6 +30,8 @@
     "dependencies": {
         "@ckeditor/ckeditor5-build-classic": "^44.3.0",
         "@ckeditor/ckeditor5-vue": "^7.3.0",
-        "axios": "^1.8.4"
+        "axios": "^1.8.4",
+        "chart.js": "^4.4.9",
+        "vue-chartjs": "^5.3.2"
     }
 }
