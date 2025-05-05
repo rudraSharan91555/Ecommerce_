@@ -32,7 +32,6 @@
             <hr class="my-5"/>
 
             @foreach($order->items()->with('product')->get() as $item)
-                <!-- Order Item -->
                 <div class="flex flex-col sm:flex-row items-center  gap-4">
                     <a href="{{ route('product.view', $item->product) }}"
                        class="w-36 h-32 flex items-center justify-center overflow-hidden">
@@ -50,7 +49,6 @@
                         </div>
                     </div>
                 </div>
-                <!--/ Order Item -->
                 <hr class="my-3"/>
             @endforeach
 

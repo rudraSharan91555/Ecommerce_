@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
@@ -23,6 +24,12 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('orders/statuses', [OrderController::class, 'getStatuses']);
     Route::post('orders/change-status/{order}/{status}', [OrderController::class, 'changeStatus']);
     Route::get('orders/{order}', [OrderController::class, 'view']);
+
+    // Dashboard
+    Route::get('dashboard/customers-count', [DashboardController::class, 'activeCustomers']);
+    Route::get('dashboard/products-count', [DashboardController::class, 'activeProducts']);
+    Route::get('dashboard/oders-count', [DashboardController::class, 'paidOrders']);
+    Route::get('dashboard/income-amount', [DashboardController::class, 'totalIncome']);
 
 });
 
