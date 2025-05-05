@@ -21,7 +21,7 @@ class DashboardController extends Controller
         return Product::count();
     }
 
-    public function activeOrders()
+    public function paidOrders()
     {
         return Order::where('status', OrderStatus::Paid->value)->count();
     }
