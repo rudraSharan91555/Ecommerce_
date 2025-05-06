@@ -46,21 +46,14 @@
     <div class="col-span-2 row-span-2 bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
       Product
     </div>
-    <!-- <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
-      <label class="text-lg font-semibold block mb-2">Orders by Country</label>
-      <template v-if="!loading.ordersByCountry">
-        <DoughnutChart :width="140" :height="200" :data="ordersByCountry"/>
-      </template>
-      <Spinner v-else text="" class=""/>
-    </div> -->
 
     <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-start h-80">
-  <label class="text-lg font-semibold block mb-4">Orders by Country</label>
-  <template v-if="!loading.ordersByCountry">
-    <DoughnutChart :width="160" :height="180" :data="ordersByCountry" />
-  </template>
-  <Spinner v-else text="" class="h-24" />
-</div>
+      <label class="text-lg font-semibold block mb-4">Orders by Country</label>
+      <template v-if="!loading.ordersByCountry">
+        <DoughnutChart :width="160" :height="180" :data="ordersByCountry" />
+      </template>
+      <Spinner v-else text="" class="h-24" />
+    </div>
 
     <div class="bg-white py-6 px-5 rounded-lg shadow flex flex-col items-center justify-center">
       Customers
