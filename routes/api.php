@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OrderController;
@@ -33,6 +34,11 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/dashboard/orders-by-country', [DashboardController::class, 'ordersByCountry']);
     Route::get('/dashboard/latest-customers', [DashboardController::class, 'latestCustomers']);
     Route::get('/dashboard/latest-orders', [DashboardController::class, 'latestOrders']);
+
+    // Report routes
+    Route::get('/report/orders', [ReportController::class, 'orders']);
+    Route::get('/report/customers', [ReportController::class, 'customers']);
+
 });
 
 Route::post('/login', [AuthController::class, 'login']);

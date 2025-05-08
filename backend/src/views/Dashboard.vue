@@ -169,7 +169,11 @@ function updateDashboard() {
   });
 
   axiosClient.get(`/dashboard/income-amount`,{params:{d}}).then(({ data }) => {
-    totalIncome.value = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' })
+    totalIncome.value = new Intl.NumberFormat('en-IN', { 
+      style: 'currency', 
+      currency: 'INR',
+      minimumFractionDigits: 0
+      })
       .format(data);
     loading.value.totalIncome = false;
   });

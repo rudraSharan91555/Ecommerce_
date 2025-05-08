@@ -12,6 +12,9 @@ import OrderView from "../views/Orders/OrderView.vue";
 import Users from "../views/Users/Users.vue";
 import Customers from "../views/Customers/Customers.vue";
 import CustomerView from "../views/Customers/CustomerView.vue";
+import CustomersReport from "../views/Reports/CustomersReport.vue";
+import Report from "../views/Reports/Report.vue";
+import OrdersReport from "../views/Reports/OrdersReport.vue";
 
 const routes = [
   {
@@ -21,6 +24,7 @@ const routes = [
   {
     path: '/app',
     name: 'app',
+    redirect: '/app/dashboard',
     component: AppLayout,
     meta: {
       requiresAuth: true
@@ -60,6 +64,28 @@ const routes = [
         path: 'orders/:id',
         name: 'app.orders.view',
         component: OrderView
+      },
+      {
+        path: '/report',
+        name: 'reports',
+        component: Report,
+        meta: {
+          requiresAuth: true
+        },
+        children: [
+          {
+            path: 'orders',
+            // path: 'orders/:date?',
+            name: 'reports.orders',
+            component: OrdersReport
+          },
+          {
+            path: 'customers',
+            // path: 'customers/:date?',
+            name: 'reports.customers',
+            component: CustomersReport
+          }
+        ]
       },
     ]
   },

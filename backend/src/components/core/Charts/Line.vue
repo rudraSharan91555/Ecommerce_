@@ -1,60 +1,40 @@
-<script>
-import {defineComponent, h} from 'vue'
-import {Line} from 'vue-chartjs'
-import {Chart as ChartJS, Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale} from 'chart.js'
+<script setup>
+import { Line } from 'vue-chartjs'
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale)
 
-export default defineComponent({
-  name: 'LineChart',
-  components: {Line},
-  props: {
-    chartId: {
-      type: String,
-      default: 'line-chart'
-    },
-    width: {
-      type: Number,
-      default: 400
-    },
-    height: {
-      type: Number,
-      default: 400
-    },
-    cssClasses: {
-      default: '',
-      type: String
-    },
-    styles: {
-      type: Object,
-      default: () => {
-      }
-    },
-    plugins: {
-      type: Object,
-      default: () => {
-      }
-    },
-    data: {
-      type: Object,
-      required: true
-    }
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true
   },
-  setup(props) {
-
-    const chartOptions = {responsive: true}
-
-    return () =>
-      h(Line, {
-        chartData: props.data,
-        chartOptions,
-        chartId: props.chartId,
-        width: props.width,
-        height: props.height,
-        cssClasses: props.cssClasses,
-        styles: props.styles,
-        plugins: props.plugins,
-      })
+  options: {
+    type: Object,
+    default: () => ({
+      responsive: true,
+      maintainAspectRatio: false
+    })
   }
 })
 </script>
+
+<template>
+  <Line :data="data" :options="options" />
+</template>
+
+<style scoped>
+canvas {
+  display: block;
+  margin: 0 auto;
+}
+</style>
