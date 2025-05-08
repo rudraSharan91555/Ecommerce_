@@ -33,8 +33,9 @@ const props = defineProps({
 </template>
 
 <style scoped>
-canvas {
-  display: block;
-  margin: 0 auto;
+#my-chart-id {
+  height: 100% !important;
 }
 </style>
+
+

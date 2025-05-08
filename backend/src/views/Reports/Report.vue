@@ -6,10 +6,10 @@
                      class="bg-white py-2 px-3 text-gray-700 rounded-md text-center"
                      active-class="text-indigo-600 bg-indigo-50">Orders Report
         </router-link>
-        <!-- <router-link :to="{name: 'reports.customers', params: route.params}"
+        <router-link :to="{name: 'reports.customers', params: route.params}"
                      class="bg-white py-2 px-3 text-gray-700 rounded-md text-center"
                      active-class="text-indigo-600 bg-indigo-50">Customers Report
-        </router-link> -->
+        </router-link>
       </div>
       <div>
         <CustomInput type="select" v-model="chosenDate" @change="onDatePickerChange" :select-options="dateOptions"/>
