@@ -15,7 +15,8 @@ const chartData = ref({
   datasets: []
 });
 
-watch(route, () => {
+watch(route, (rt) => {
+  console.log(rt.params.date)
   getData();
 }, { immediate: true });
 

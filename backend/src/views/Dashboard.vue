@@ -100,26 +100,19 @@
 </template>
 
 <script setup>
-import { UserIcon } from '@heroicons/vue/outline'
+import {UserIcon} from '@heroicons/vue/outline'
 import DoughnutChart from '../components/core/Charts/Doughnut.vue'
 import axiosClient from "../axios.js";
-import { onMounted, ref } from 'vue';
-import Spinner from '../components/core/Spinner.vue';
-import CustomInput from '../components/core/CustomInput.vue';
+import {computed, onMounted, ref} from "vue";
+import Spinner from "../components/core/Spinner.vue";
+import CustomInput from "../components/core/CustomInput.vue";
+import {useStore} from "vuex";
 
 
-const dateOptions = ref([
-  { key: '1d', text: 'Last 2 Days' },
-  { key: '1k', text: 'Last week' },
-  { key: '2k', text: 'Last 2 weeks' },
-  { key: '1m', text: 'Last month' },
-  { key: '3m', text: 'Last 3 months' },
-  { key: '6m', text: 'Last 6 months' },
-  { key: 'all', text: 'All Time' },
+const store = useStore();
+const dateOptions = computed(() => store.state.dateOptions);
+const chosenDate = ref('all')
 
-]);
-
-const chosenDate = ref('all');
 
 const loading = ref({
   customersCount: true,

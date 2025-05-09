@@ -74,14 +74,12 @@ const routes = [
         },
         children: [
           {
-            path: 'orders',
-            // path: 'orders/:date?',
+            path: 'orders/:date?',
             name: 'reports.orders',
             component: OrdersReport
           },
           {
-            path: 'customers',
-            // path: 'customers/:date?',
+            path: 'customers/:date?',
             name: 'reports.customers',
             component: CustomersReport
           }
