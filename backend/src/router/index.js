@@ -15,6 +15,8 @@ import CustomerView from "../views/Customers/CustomerView.vue";
 import CustomersReport from "../views/Reports/CustomersReport.vue";
 import Report from "../views/Reports/Report.vue";
 import OrdersReport from "../views/Reports/OrdersReport.vue";
+import ProductFrom from "../views/Products/ProductFrom.vue";
+import Categories from "../views/Categories/Categories.vue";
 
 const routes = [
   {
@@ -39,6 +41,24 @@ const routes = [
         path: 'products',
         name: 'app.products',
         component: Products
+      },
+      {
+        path: 'categories',
+        name: 'app.categories',
+        component: Categories
+      },
+      {
+        path: 'products/create',
+        name: 'app.products.create',
+        component: ProductFrom
+      },
+      {
+        path: 'products/:id',
+        name: 'app.products.edit',
+        component: ProductFrom,
+        props:{
+          id:(value) => /^\d+$/.test(value)
+        }
       },
       {
         path: 'users',

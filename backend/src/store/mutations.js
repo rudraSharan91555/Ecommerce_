@@ -104,3 +104,15 @@ export function setCountriesLoading(state, loading) {
 export function setCountriesError(state, error) {
   state.countriesError = error;
 }
+
+export function setCategories(state, [loading, data = null]) {
+
+  if (data) {
+    state.categories = {
+      ...state.categories,
+      data: data.data,
+    }
+  }
+
+  state.categories.loading = loading;
+}
