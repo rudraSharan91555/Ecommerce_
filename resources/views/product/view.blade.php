@@ -1,5 +1,5 @@
 <x-app-layout>
-    {{-- Rudra --}}
+    {{-- Rudra Sharan --}}
     <div  x-data="productItem({{ json_encode([
                     'id' => $product->id,
                     'slug' => $product->slug,
