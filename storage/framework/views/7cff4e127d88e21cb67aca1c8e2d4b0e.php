@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>{{ config('app.name', 'Laravel E-commerce Project') }}</title>
+    <title><?php echo e(config('app.name', 'Laravel E-commerce Project')); ?></title>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     
 
     <style>
@@ -18,10 +18,11 @@
     </style>
   </head>
   <body>
-    @include('layouts.navigation')
+    <?php echo $__env->make('layouts.navigation', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <main class="p-5">
-     {{ $slot }}
+     <?php echo e($slot); ?>
+
     </main>
 
     <!-- Toast -->
@@ -65,3 +66,4 @@
     <!--/ Toast -->
   </body>
 </html>
+<?php /**PATH C:\Users\rudra\Desktop\Laravel_New\laravel_Ecommerce\resources\views/layouts/app.blade.php ENDPATH**/ ?>

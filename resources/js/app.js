@@ -20,13 +20,15 @@ document.addEventListener("alpine:init", () => {
       interval: null,
       timeout: null,
       message: null,
+      type: null,
       close() {
         this.visible = false;
         clearInterval(this.interval);
       },
-      show(message) {
+      show(message,type) {
         this.visible = true;
         this.message = message;
+        this.type = type;
   
         if (this.interval) {
           clearInterval(this.interval);

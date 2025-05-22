@@ -14,19 +14,31 @@ class Product extends Model
     use HasSlug;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'price', 'image','published','quantity','image_mime', 'image_size', 'created_by', 'updated_by'];
+    protected $fillable = ['title', 'description', 'price', 'published', 'quantity', 'created_by', 'updated_by'];
 
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
 
-    public function getRouteKey(){
+    public function getRouteKey()
+    {
         return 'slug';
+    }
+
+
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class)->orderBy('position');
+    }
+
+    public function getImageAttribute(){
+        return $this->images->count()>0 ? $this->images->get(0)->url: null;
     }
 }

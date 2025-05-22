@@ -33,6 +33,18 @@ class CheckoutController extends Controller
         $lineItems = [];
 
         foreach ($products as $product) {
+            $quantity = $cartItems[$product->id]['quantity'];
+            if ($product->quantity !== null && $product->quantity < $quantity) {
+                $message = match ($product->quantity) {
+                    0 => 'The product "'.$product->title.'" is out of stock',
+                    1 => 'There is only one item left for product "'.$product->title,
+                    default => 'There are only ' . $product->quantity . ' items left for product "'.$product->title,
+                };
+                return redirect()->back()->with('error', $message);
+            }
+        }
+        
+        foreach ($products as $product) {
             $quantity = $cartItems[$product->id]['quantity'] ?? 1;
             $totalAmount += $product->price * $quantity * 100;
             $lineItems[] = [

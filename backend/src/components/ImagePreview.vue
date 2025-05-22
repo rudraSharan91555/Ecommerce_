@@ -150,6 +150,7 @@ function updateImagePositions() {
 
 
 watch(() => props.images, (newVal) => {
+  console.log(props.images)
   if (!Array.isArray(newVal)) return
 
   console.log(newVal)

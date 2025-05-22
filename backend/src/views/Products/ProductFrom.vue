@@ -88,7 +88,8 @@ onMounted(() => {
     store.dispatch('getProduct', route.params.id)
       .then((response) => {
         loading.value = false;
-        product.value = response.data
+        product.value = response.data;
+        console.log("Got Response")
       })
   }
 

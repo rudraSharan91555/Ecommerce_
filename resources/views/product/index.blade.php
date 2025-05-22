@@ -9,7 +9,7 @@
       x-data="productItem({{ json_encode([
         'id' => $product->id,
         'title' => $product->title,
-        'image' => $product->image,
+        'image' => $product->image ?: '/img/noimage.png',
         'price' => $product->price,
         'addToCartUrl' => route('cart.add', $product),
       ] )}})"
@@ -17,7 +17,7 @@
     >
       <a href="{{ route('product.view',$product->slug)}}" class="block overflow-hidden aspect-w-3 aspect-h-2">
         <img
-          src="{{ $product->image }}"
+          src="{{ $product->image ?: '/img/noimage.png'}}"
           alt=""
           class="rounded-lg hover:scale-105 hover:rotate-1 transition-transform object-cover "
         />
