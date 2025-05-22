@@ -1,3 +1,4 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <div class="flex items-center justify-between mb-3">
     <h1 v-if="!loading" class="text-3xl font-semibold">
@@ -11,7 +12,7 @@
       <div class="grid grid-cols-3">
         <div class="col-span-2 px-4 pt-5 pb-4">
           <CustomInput class="mb-2" v-model="product.title" label="Product Title" :errors="errors['title']"/>
-          <CustomInput type="textarea"  class="mb-2" v-model="product.description" label="Description" :errors="errors['description']"/>
+          <CustomInput type="textarea" class="mb-2" v-model="product.description" label="Description" :errors="errors['description']"/>
           <CustomInput type="number" class="mb-2" v-model="product.price" label="Price" prepend="$" :errors="errors['price']"/>
           <CustomInput type="number" class="mb-2" v-model="product.quantity" label="Quantity" :errors="errors['quantity']"/>
           <CustomInput type="checkbox" class="mb-2" v-model="product.published" label="Published" :errors="errors['published']"/>
@@ -88,8 +89,7 @@ onMounted(() => {
     store.dispatch('getProduct', route.params.id)
       .then((response) => {
         loading.value = false;
-        product.value = response.data;
-        console.log("Got Response")
+        product.value = response.data
       })
   }
 

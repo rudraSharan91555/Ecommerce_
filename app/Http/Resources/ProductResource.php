@@ -16,20 +16,48 @@ class ProductResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
+    // public function toArray($request)
+    // {
+    //     return [
+    //         'id' => $this->id,
+    //         'title' => $this->title,
+    //         'slug' => $this->slug,
+    //         'description' => $this->description,
+    //         // 'image_url' => $this->image,
+    //         'images' => $this->images,
+    //         'image_url' => optional($this->images->first())->url,
+    //         'price' => $this->price,
+    //         'quantity' => $this->quantity,
+    //         'published' => (bool)$this->published,
+    //         'categories' => $this->categories->map(fn($c) => $c->id),
+    //         'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
+    //         'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
+    //     ];
+    // }
     public function toArray($request)
-    {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'description' => $this->description,
-            'image_url' => $this->image ?: null,
-            // 'image_url' => $this->image ? URL::to(Storage::url($this->image)) : null,
-            'price' => $this->price,
-            'quantity' => $this->quantity,
-            'published' => (bool)$this->published,
-            'created_at' => (new \DateTime($this->created_at))->format('Y-m-d H:i:s'),
-            'updated_at' => (new \DateTime($this->updated_at))->format('Y-m-d H:i:s'),
-        ];
-    }
+{
+    return [
+        'id' => $this->id,
+        'title' => $this->title,
+        'slug' => $this->slug,
+        'description' => $this->description,
+        'images' => $this->images->map(function($image) {
+            return [
+                'id' => $image->id,
+                'url' => $image->url,
+                'mime' => $image->mime,
+                'size' => $image->size,
+                'position' => $image->position,
+            ];
+        }),
+        'image_url' => optional($this->images->first())->url,
+        'price' => $this->price,
+        'quantity' => $this->quantity,
+        'published' => (bool)$this->published,
+        'categories' => $this->categories->pluck('id'), 
+        'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+        'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+    ];
+}
+
 }
