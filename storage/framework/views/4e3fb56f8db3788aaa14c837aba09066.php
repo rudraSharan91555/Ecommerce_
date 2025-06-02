@@ -108,7 +108,7 @@
                     <?php echo e($product->title); ?>
 
                 </h1>
-                <div class="text-xl font-bold mb-6">$<?php echo e($product->price); ?></div>
+                <div class="text-xl font-bold mb-6">₹<?php echo e($product->price); ?></div>
                 <?php if($product->quantity === 0): ?>
                     <div class="bg-red-400 text-white py-2 px-3 rounded mb-3">
                         The product is out of stock

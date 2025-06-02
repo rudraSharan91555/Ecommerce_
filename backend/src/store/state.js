@@ -61,5 +61,6 @@ export default {
   categories: {
     loading: false,
     data: [],
+    links: []
   }
 }

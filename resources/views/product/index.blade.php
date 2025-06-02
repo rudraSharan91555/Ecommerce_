@@ -5,7 +5,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
 ?>
 
 <x-app-layout>
-    <x-category-list :category-list="$categoryList" class="-ml-5 -mt-5 -mr-5 px-4"/>
+    {{-- <x-category-list :category-list="$categoryList" class="-ml-5 -mt-5 -mr-5 px-4"/> --}}
 
     <div class="flex gap-2 items-center p-3 pb-0" x-data="{
             selectedSort: '{{ request()->get('sort', '-updated_at') }}',
@@ -82,7 +82,7 @@ $categoryList = \App\Models\Category::getActiveAsTree();
                                 {{$product->title}}
                             </a>
                         </h3>
-                        <h5 class="font-bold">${{$product->price}}</h5>
+                        <h5 class="font-bold">₹{{$product->price}}</h5>
                     </div>
                     <div class="flex justify-between py-3 px-4">
                         <button class="btn-primary" @click="addToCart()">

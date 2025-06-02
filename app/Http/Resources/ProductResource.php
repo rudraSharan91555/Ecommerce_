@@ -37,7 +37,8 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'quantity' => $this->quantity,
             'published' => (bool)$this->published,
-            'categories' => $this->categories->pluck('id'),
+            // 'categories' => $this->categories->pluck('id'),
+            'categories' => $this->categories->map(fn($c)=>$c->id),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];

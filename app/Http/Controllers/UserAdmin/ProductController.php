@@ -16,17 +16,17 @@ class ProductController extends Controller
         return $this->renderProducts($query);
     }
 
-    public function byCategory(Category $category)
-    {
-        $categories = Category::getAllChildrenByParent($category);
+    // public function byCategory(Category $category)
+    // {
+    //     $categories = Category::getAllChildrenByParent($category);
 
-        $query = Product::query()
-            ->select('products.*')
-            ->join('product_categories AS pc', 'pc.product_id', 'products.id')
-            ->whereIn('pc.category_id', array_map(fn($c) => $c->id, $categories));
+    //     $query = Product::query()
+    //         ->select('products.*')
+    //         ->join('product_categories AS pc', 'pc.product_id', 'products.id')
+    //         ->whereIn('pc.category_id', array_map(fn($c) => $c->id, $categories));
 
-        return $this->renderProducts($query);
-    }
+    //     return $this->renderProducts($query);
+    // }
 
     public function view(Product $product)
     {
