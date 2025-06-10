@@ -5,9 +5,7 @@ services:
     plan: free
     dockerfilePath: ./Dockerfile
     buildCommand: "composer install --no-dev --optimize-autoloader && php artisan migrate --force"
-    startCommand: "php-fpm"
-
-    # startCommand: "php artisan serve --host=0.0.0.0 --port=10000"
+    startCommand: "php artisan serve --host=0.0.0.0 --port=8000"
     envVars:
       - key: APP_ENV
         value: production

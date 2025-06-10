@@ -21,6 +21,8 @@ RUN composer install --no-dev --optimize-autoloader
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port and start server
-EXPOSE 9000
-CMD ["php-fpm"]
+# Expose port 8000 for Laravel dev server
+EXPOSE 8000
+
+# Start Laravel app using artisan serve
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
