@@ -1,0 +1,57 @@
+services:
+  - type: web
+    name: laravel-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    buildCommand: "composer install --no-dev --optimize-autoloader && php artisan migrate --force"
+    startCommand: "php artisan serve --host=0.0.0.0 --port=8000"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_KEY
+        value: base64:svlL81Yp1RsUkWl8BdXdQMlPIJL3iOlWkg87zvylvis=
+      - key: APP_DEBUG
+        value: false
+      - key: APP_URL
+        value: https://laravel-app-ru7l.onrender.com   # <--- Replace this with your actual Render URL
+
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: mysql-qwer.onrender.com    # <--- Replace this with your actual DB host
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DATABASE
+        value: ecome_lara
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: mysecurepassword123       # <--- Replace this with your actual DB password
+
+      - key: SESSION_DRIVER
+        value: database
+      - key: SESSION_LIFETIME
+        value: 120
+
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        value: sandbox.smtp.mailtrap.io
+      - key: MAIL_PORT
+        value: 2525
+      - key: MAIL_USERNAME
+        value: 4bacea2e1d8f34
+      - key: MAIL_PASSWORD
+        value: 140669c4c7a686
+      - key: MAIL_ENCRYPTION
+        value: null
+      - key: MAIL_FROM_ADDRESS
+        value: hello@example.com
+      - key: MAIL_FROM_NAME
+        value: Laravel
+
+      - key: RAZORPAY_KEY
+        value: rzp_test_9II0ZdMGZUFFhG
+      - key: RAZORPAY_SECRET
+        value: luAiOefhJLURgtoJFl08yN1k
