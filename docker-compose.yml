@@ -2,24 +2,36 @@ version: '3.8'
 
 services:
   laravel:
+    image: laravel_app
     container_name: laravel_app
-    build:
-      context: .
-      dockerfile: Dockerfile
     ports:
-      - "8000:8000"
+      - "8000:80"
     volumes:
-      - ./backend:/var/www/html
+      - ./app:/var/www/html
     depends_on:
       - mysql
+    networks:
+      - laravel
 
   mysql:
     image: mysql:8.0
     container_name: mysql_db
+    restart: unless-stopped
     ports:
       - "3306:3306"
     environment:
+      MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ecom_laravel
-      MYSQL_USER: root
+      MYSQL_USER: laravel
       MYSQL_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+volumes:
+  mysql_data:
+
+networks:
+  laravel:
+    driver: bridge
