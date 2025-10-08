@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
     <title><?php echo e(config('app.name', 'Laravel E-commerce Project')); ?></title>
+    <link rel="icon" href="<?php echo e(asset('imgass/favicon.ico')); ?>" type="image/x-icon">
 
     <!-- Scripts -->
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
